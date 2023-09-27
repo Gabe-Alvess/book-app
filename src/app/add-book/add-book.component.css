@@ -1,0 +1,7 @@
+.field {
+  @apply p-1 rounded-md m-2 text-black;
+}
+
+.btn {
+  @apply bg-green-600 p-3 rounded-md mt-2 hover:scale-105 hover:bg-green-400 transition duration-300;
+}
