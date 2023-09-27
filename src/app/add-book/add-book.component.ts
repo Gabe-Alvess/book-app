@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Book } from '../interfaces/Book';
 import { BookService } from '../service/book.service';
 
 @Component({
@@ -7,37 +8,36 @@ import { BookService } from '../service/book.service';
   styleUrls: ['./add-book.component.css'],
 })
 export class AddBookComponent {
-  public title: string = '';
-  public author: string = '';
-  public genres: string = '';
-  public description: string = '';
-  public imgURL: string = '';
-  public addedBook: Object = '';
+  newBook?: Book;
+  failed: boolean = false;
+
+  book: Book = {
+    imgURL: '',
+    title: '',
+    author: '',
+    genres: '',
+    description: '',
+  };
 
   constructor(private bookService: BookService) {}
+  onSubmit() {
+    this.bookService.addBook(this.book).subscribe({
+      next: (response: Book) => {
+        this.newBook = response;
+        this.failed = false;
+      },
+      error: (responseError) => {
+        this.failed = true;
+        console.error('Post error: ', responseError);
+      },
+    });
 
-  addNewBook() {
-    this.bookService
-      .addBook(
-        this.title,
-        this.author,
-        this.genres,
-        this.description,
-        this.imgURL
-      )
-      .subscribe({
-        next: (response: Object) => {
-          this.addedBook = JSON.stringify(response);
-        },
-        error: (error) => {
-          console.log('Post error: ', error);
-        },
-      });
-
-    this.title = '';
-    this.author = '';
-    this.genres = '';
-    this.description = '';
-    this.imgURL = '';
+    this.book = {
+      imgURL: '',
+      title: '',
+      author: '',
+      genres: '',
+      description: '',
+    };
   }
 }
