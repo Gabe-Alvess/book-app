@@ -7,10 +7,14 @@ import { Book } from '../interfaces/Book';
   providedIn: 'root',
 })
 export class BookService {
-  private apiUrl = `http://localhost:8080`;
+  private apiUrl = `http://localhost:8080/books`;
   constructor(private http: HttpClient) {}
 
   addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(`${this.apiUrl}/books`, book);
+    return this.http.post<Book>(this.apiUrl, book);
+  }
+
+  searchByTitle(title: string) {
+    return this.http.get<Book[]>(`${this.apiUrl}/title?title=${title}`);
   }
 }

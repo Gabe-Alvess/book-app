@@ -1,1 +1,46 @@
-<p>get-book works!</p>
+<div class="relative h-screen flex flex-col items-center pt-28">
+  <div class="flex items-center font-mooli">
+    <div
+      class="border-2 py-2 px-3 rounded-lg flex items-center hover:bg-green-500 hover:scale-110 transition duration-300"
+    >
+      <button (click)="searchBookByTitle()">
+        <img
+          class="w-7"
+          src="../../assets/search-glass.svg"
+          alt="search button"
+        />
+      </button>
+    </div>
+    <input
+      type="text"
+      id="search"
+      [(ngModel)]="title"
+      class="w-[50vw] p-3 rounded-lg m-4"
+      placeholder="Example: Harry Potter"
+    />
+  </div>
+
+  <div class="flex flex-col  mt-5">
+    <div *ngFor="let book of books" class="flex mt-5">
+      <div class="w-[400px] h-[400px] object-cover">
+        <img [src]="book.imgURL" alt="book cover" />
+      </div>
+      <div class="ml-10 text-white">
+        <h1 class="text-4xl font-oswald mb-3">{{ book.title }}</h1>
+        <h2 class="text-2xl font-mooli mb-3">{{ book.author }}</h2>
+        <p class="text-xl font-mooli max-w-lg mb-3">
+          {{ book.description }}
+        </p>
+        <p class="text-lg font-mooli max-w-md">
+          <strong>Genres:</strong> {{ book.genres }}
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="failed">
+      <h2 class="text-red-500 text-3xl font-oswald">
+        Something went wrong! (┬┬﹏┬┬)
+      </h2>
+    </div>
+  </div>
+</div>
