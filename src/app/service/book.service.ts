@@ -15,6 +15,6 @@ export class BookService {
   }
 
   searchByTitle(title: string) {
-    return this.http.get<Book[]>(`${this.apiUrl}/title?title=${title}`);
+    return this.http.get<Book[]>(`${this.apiUrl}/author?author=${title}`);
   }
 }

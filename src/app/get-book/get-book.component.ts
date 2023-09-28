@@ -19,6 +19,7 @@ export class GetBookComponent {
     this.bookService.searchByTitle(this.title).subscribe({
       next: (response: Book[]) => {
         this.books = response;
+        console.log(this.books);
         this.failed = false;
       },
       error: (error) => {
@@ -27,7 +28,6 @@ export class GetBookComponent {
       },
     });
     this.title = '';
-    console.log(this.books);
     console.log('Failed: ' + this.failed);
   }
 }
