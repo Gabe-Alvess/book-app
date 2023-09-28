@@ -1,46 +1,70 @@
-<div
-  class="relative h-screen flex items-center justify-center text-white p-10"
->
+<div class="relative h-screen flex items-center justify-center text-white p-10">
   <div
-    class="flex flex-col items-center justify-around mr-5 w-[420px] h-[600px] bg-slate-600 p-10 rounded-md"
+    class="flex flex-col items-center justify-around mr-5 w-[420px] bg-slate-600 p-10 rounded-md"
   >
     <h1 class="text-2xl uppercase font-oswald">Add a new book</h1>
     <form (ngSubmit)="onSubmit()">
       <div class="flex flex-col justify-center items-center text-lg font-mooli">
         <label for="title">Title:</label>
-        <input class="field" type="text" id="title" name="title" [(ngModel)]="book.title" required />
+        <input
+          class="field"
+          type="text"
+          name="title"
+          [(ngModel)]="book.title"
+        />
 
         <label for="author">Author:</label>
-        <input class="field" type="text" id="author" name="author" [(ngModel)]="book.author" required />
+        <input
+          class="field"
+          type="text"
+          name="author"
+          [(ngModel)]="book.author"
+        />
 
         <label for="genres">Genres:</label>
-        <input class="field" type="text" id="genres" name="genres" [(ngModel)]="book.genres" required />
+        <input
+          class="field"
+          type="text"
+          name="genres"
+          [(ngModel)]="book.genres"
+        />
 
         <label for="description">Description:</label>
-        <input class="field" type="text" id="description" name="description" [(ngModel)]="book.description" required />
+        <textarea
+          class="field"
+          name="description"
+          rows="5" cols="33"
+          [(ngModel)]="book.description"
+        ></textarea>
 
         <label for="img">Image URL:</label>
-        <input class="field" type="text" id="img" name="img" [(ngModel)]="book.imgURL" required />
+        <input class="field" type="text" name="img" [(ngModel)]="book.imgURL" />
 
         <button type="submit" class="btn">Add Book</button>
       </div>
     </form>
   </div>
 
-  <div *ngIf="newBook" class="flex flex-col items-center justify-evenly w-[420px] h-[600px] bg-slate-600 p-10 rounded-md" >
-    <div>
-      <img class="h-80" [src]="newBook.imgURL" alt="book cover" />
+  <div
+    *ngIf="newBook"
+    class="flex flex-col items-center justify-evenly w-[420px] bg-slate-600 p-10 rounded-md"
+  >
+    <div class="w-[200px] h-[200px] object-cover">
+      <img [src]="newBook.imgURL" alt="book cover" />
     </div>
     <div class="flex flex-col items-center justify-evenly h-36">
       <h1 class="text-2xl font-oswald">{{ newBook.title }}</h1>
       <h3 class="text-lg font-mooli">{{ newBook.author }}</h3>
-      <p class="font-mooli">{{ newBook.description }}</p>
+      <p class="font-mooli max-w-lg">{{ newBook.description }}</p>
       <p class="font-mooli">Genres: {{ newBook.genres }}</p>
     </div>
     <p class="text-3xl text-green-400 font-oswald">Book successfully added!</p>
   </div>
 
-  <div *ngIf="failed" class="flex flex-col items-center justify-evenly w-[420px] h-[600px] bg-slate-600 p-10 rounded-md" >
+  <div
+    *ngIf="failed"
+    class="flex flex-col items-center justify-evenly w-[420px] h-[600px] bg-slate-600 p-10 rounded-md"
+  >
     <p class="text-3xl text-red-500 font-oswald">Book not added! (┬┬﹏┬┬)</p>
   </div>
 </div>

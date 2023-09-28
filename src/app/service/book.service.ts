@@ -11,7 +11,7 @@ export class BookService {
   constructor(private http: HttpClient) {}
 
   addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(this.apiUrl, book);
+    return this.http.post<Book>(`${this.apiUrl}/add`, book);
   }
 
   searchByTitle(title: string) {
