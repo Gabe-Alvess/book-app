@@ -1,9 +1,9 @@
-<div class="relative h-screen flex flex-col items-center pt-28">
+<div class="h-screen flex flex-col items-center pt-28">
   <div class="flex items-center font-mooli">
     <div
       class="border-2 py-2 px-3 rounded-lg flex items-center hover:bg-green-500 hover:scale-110 transition duration-300"
     >
-      <button (click)="searchBookByTitle()">
+      <button (click)="searchBook()">
         <img
           class="w-7"
           src="../../assets/search-glass.svg"
@@ -14,21 +14,23 @@
     <input
       type="text"
       id="search"
-      [(ngModel)]="title"
+      [(ngModel)]="userInput"
       class="w-[50vw] p-3 rounded-lg m-4"
-      placeholder="Example: Harry Potter"
+      placeholder="Title / Author / Genre"
     />
   </div>
 
   <div class="flex flex-col mt-5">
-    <div *ngFor="let book of books" class="flex mt-5">
-      <div class="w-[300px] h-[300px] object-cover">
-        <img [src]="book.imgURL" alt="book cover" />
+    <div *ngFor="let book of books" class="flex items-center">
+      <div class="w-[250px] h-[400px] object-cover">
+        <img [src]="book.imgURL" [alt]="book.title" />
       </div>
       <div class="ml-5 text-white">
-        <h1 class="text-4xl font-oswald max-w-md mb-3">{{ book.title }}</h1>
+        <h1 class="text-4xl font-oswald mb-3">{{ book.title }}</h1>
         <h2 class="text-2xl font-mooli mb-3">{{ book.author }}</h2>
-        <p class="text-xl font-mooli max-w-lg mb-3">
+        <p
+          class="text-lg font-mooli max-w-md max-h-80 overflow-y-scroll scrollbar-none mb-3"
+        >
           {{ book.description }}
         </p>
         <p class="text-lg font-mooli max-w-md">
@@ -37,10 +39,22 @@
       </div>
     </div>
 
+    <div *ngIf="notFound">
+      <p class="text-3xl text-red-500 text-center font-oswald">
+        Book Not Found! (┬┬﹏┬┬)
+      </p>
+    </div>
+
     <div *ngIf="failed">
-      <h2 class="text-red-500 text-3xl font-oswald">
+      <p class="text-3xl text-red-500 text-center font-oswald">
         Something went wrong! (┬┬﹏┬┬)
-      </h2>
+      </p>
+      <p class="text-3xl text-red-500 text-center font-oswald">
+        {{ "Error Code: " + errorCode }}
+      </p>
+      <p class="text-3xl text-red-500 text-center font-oswald">
+        {{ errorName }}
+      </p>
     </div>
   </div>
 </div>

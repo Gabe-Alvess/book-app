@@ -1,5 +1,5 @@
 .field {
-  @apply p-1 rounded-md m-2 text-black;
+  @apply p-1 rounded-md m-2 text-black text-center;
 }
 
 .btn {

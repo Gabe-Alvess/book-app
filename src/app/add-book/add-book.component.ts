@@ -10,6 +10,8 @@ import { BookService } from '../service/book.service';
 export class AddBookComponent {
   newBook?: Book;
   failed: boolean = false;
+  errorCode: string = '';
+  errorName: string = '';
 
   book: Book = {
     imgURL: '',
@@ -27,8 +29,11 @@ export class AddBookComponent {
         this.failed = false;
       },
       error: (responseError) => {
+        this.newBook = undefined;
         this.failed = true;
         console.error('Post error: ', responseError);
+        this.errorCode = responseError.status;
+        this.errorName = responseError.error.error;
       },
     });
 

@@ -9,25 +9,36 @@ import { BookService } from '../service/book.service';
 })
 export class GetBookComponent {
   books: Book[] = [];
-  failed: boolean = false;
+  notFound: boolean = false;
 
-  title: string = '';
+  failed: boolean = false;
+  errorCode: string = '';
+  errorName: string = '';
+
+  userInput: string = '';
 
   constructor(private bookService: BookService) {}
 
-  searchBookByTitle() {
-    this.bookService.searchByTitle(this.title).subscribe({
+  searchBook() {
+    this.bookService.searchForBooks(this.userInput).subscribe({
       next: (response: Book[]) => {
         this.books = response;
-        console.log(this.books);
+
+        this.books.length === 0
+          ? (this.notFound = true)
+          : (this.notFound = false);
+
         this.failed = false;
+
+        console.log(this.books);
       },
-      error: (error) => {
-        console.error('Get error: ', error);
+      error: (responseError) => {
+        console.error('Get error: ', responseError);
         this.failed = true;
+        this.errorCode = responseError.status;
+        this.errorName = responseError.error.error;
       },
     });
-    this.title = '';
-    console.log('Failed: ' + this.failed);
+    this.userInput = '';
   }
 }

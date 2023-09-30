@@ -14,7 +14,11 @@ export class BookService {
     return this.http.post<Book>(`${this.apiUrl}/add`, book);
   }
 
-  searchByTitle(title: string) {
-    return this.http.get<Book[]>(`${this.apiUrl}/author?author=${title}`);
+  searchForBooks(input: string) {
+    return this.http.get<Book[]>(`${this.apiUrl}/search?userSearch=${input}`);
+  }
+
+  getBooks() {
+    return this.http.get<Book[]>(`${this.apiUrl}/all`)
   }
 }
